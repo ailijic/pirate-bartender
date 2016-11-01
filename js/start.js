@@ -15,13 +15,14 @@ function start () {
     allowOutsideClick: false,
     // Confirm button config
     showConfirmButton: true,
-    closeOnConfirm: false,
+    // closeOnConfirm: false,
     confirmButtonText: "Yes",
     confirmButtonColor: "#00ff00",
     // Cancel button config
     showCancelButton: true,
-    closeOnCancel: false,
+    // closeOnCancel: false,
     cancelButtonText: "No",
+    cancelButtonColor: "ff0000",
   });
 
   const Questions = {
@@ -40,53 +41,113 @@ function start () {
     sweet: ['sugar cube', 'spoonful of honey', 'splash of cola'],
     fruity: ['slice of orange', 'dash of cassis', 'cherry on top'],
   };
-  
-  let Pantry = function constructor (Ingredients) {
-    let that = {};
-    let Array.prototype.rand = 
-    // What does this need to do?
-    // // A: Return a random ingrediant based on the type the bartender
-    // // // wants?
-    let fetchIngredient = function (ingredientType) {
-      // Return a random ingredint from the list of indredientType
-      const ret = rand
-      return Ingredients
-  };
 
-  function Bartender () {
-    // What does this need to do?
-    // createDrink method
-  }
-    
-  function UI (obj) {
-    // declare questions to ask
-    const questionDict = obj.hasOwnProperty('questions') 
-      ? obj.questions : obj
-    
-    this.ask = askQuestionsFunction
-    
-    function askQuestionsFunction () {
-      for (let question in questionDict) {
-        console.log(questionDict[question])
+  const Patron = {};
+
+  class Bartender {
+    constructor (Patron) {
+      // Question 1:
+      let question = Questions.strong;
+      let questionObj = { title: question };
+      swal(questionObj).then(function(result) {
+        Patron.strong = result;
+        console.log(Patron);
+        nextQuestion();
+      }, function(dismiss) {
+        // dismiss can be 'cancel', 'overlay', 'close', or 'timer'
+        if (dismiss === 'cancel') {
+          Patron.strong = false;
+          console.log(Patron);
+          nextQuestion();
+        } else {
+          console.log("Expected true or 'cancle'");
+          console.log("User Input was: ", dismiss);
+          console.log(
+            "Posible vals: 'cancel', 'overlay', 'close', or 'timer'");
+        }
+      });
+      function nextQuestion () {
+        // Question 2:
+        question = Questions.salty;
+        questionObj = { title: question };
+        swal(questionObj).then(function(result) {
+          Patron.salty = result;
+          console.log(Patron);
+          question3();
+        }, function(dismiss) {
+          // dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+          if (dismiss === 'cancel') {
+            Patron.salty = false;
+            console.log(Patron);
+          question3();
+          }
+        });
+      }
+      function question3 () {
+        // Question 3:
+        question = Questions.bitter;
+        questionObj = { title: question };
+        swal(questionObj).then(function(result) {
+          Patron.bitter = result;
+          console.log(Patron);
+          question4();
+        }, function(dismiss) {
+          // dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+          if (dismiss === 'cancel') {
+            Patron.salty = false;
+            console.log(Patron);
+          question4();
+          }
+        });
+      }
+      function question4 () {
+        // Question 4:
+        question = Questions.sweet;
+        questionObj = { title: question };
+        swal(questionObj).then(function(result) {
+          Patron.sweet = result;
+          console.log(Patron);
+          question5();
+        }, function(dismiss) {
+          // dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+          if (dismiss === 'cancel') {
+            Patron.sweet = false;
+            console.log(Patron);
+          question5();
+          }
+        });
+      }
+      function question5 () {
+        // Question 5:
+        question = Questions.fruity;
+        questionObj = { title: question };
+        swal(questionObj).then(function(result) {
+          Patron.fruity = result;
+          console.log(Patron);
+          makeDrink();
+        }, function(dismiss) {
+          // dismiss can be 'cancel', 'overlay', 'close', and 'timer'
+          if (dismiss === 'cancel') {
+            Patron.fruity = false;
+            console.log(Patron);
+          makeDrink();
+          }
+        });
+      }
+      function makeDrink () {
+        const str = "Here is your drink:\n\"Old Man & The Sea\"";
+        const type = 'success';
+        const obj = {
+          title: str,
+          type: type,
+          imageUrl: "images/pirate-icon.ico",
+        };
+        swal.resetDefaults();
+        swal(obj);
       }
     }
   }
-
   function main () {
-    // Define bartender
-    // Define patron
-    // Bartender asks questions
-    // Bartender makes drink 
-    let question1 = {title: "Do ye like yer drinks strong?"};
-    swal(question1, function (inputValue) {
-        if (inputValue === false) return false;
-        if (inputValue === "") {
-          swal.showInputError("You need to write something!");
-          return false;
-        }
-        swal("Nice!", "You wrote: " + inputValue, "success");
-    });
+    let bart = new Bartender(Patron);
   }
 }
-  /////////////////////////////
-  // Create ask() method and have it use sawl()

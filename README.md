@@ -1,7 +1,7 @@
 # pirate-bartender
 pirate-bartender
 
-he basic requirements
+The basic requirements
 
 Create questions and ingredients objects
 The bartender should ask questions that determine your tastes and then identify ingredients to suit those tastes. If you like you can use our examples below, but feel free to customize!
